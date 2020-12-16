@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
-class Login extends StatefulWidget {
+class SignUp extends StatefulWidget {
   @override
-  _LoginState createState() => _LoginState();
+  _SignUpState createState() => _SignUpState();
 }
 
-class _LoginState extends State<Login> {
+class _SignUpState extends State<SignUp> {
   var _formkey = GlobalKey<FormState>();
-
+  var _adharnumber = TextEditingController();
+  var _email = TextEditingController();
+  var _phonenumber = TextEditingController();
   var _username = TextEditingController();
   var _password = TextEditingController();
 
@@ -24,7 +26,7 @@ class _LoginState extends State<Login> {
               padding: const EdgeInsets.all(20.0),
               child: Center(
                 child: Text(
-                  'Login',
+                  'SignUp',
                   style: TextStyle(fontSize: 35),
                 ),
               ),
@@ -64,10 +66,10 @@ class _LoginState extends State<Login> {
                       child: Padding(
                         padding: const EdgeInsets.only(left: 8.0, right: 8),
                         child: TextField(
-                          controller: _password,
-                          keyboardType: TextInputType.visiblePassword,
+                          controller: _username,
+                          keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
-                              labelText: 'Password',
+                              labelText: 'Email Address',
                               labelStyle:
                                   TextStyle(fontSize: 15, color: Colors.black)),
                         ),
@@ -77,13 +79,59 @@ class _LoginState extends State<Login> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black, width: 2),
+                          borderRadius: BorderRadius.all(Radius.circular(15))),
                       width: 300,
-                      child: GestureDetector(
-                        onTap: () {},
-                        child: Text(
-                          'Forgot Password',
-                          textAlign: TextAlign.right,
-                          style: TextStyle(color: Colors.black, fontSize: 15),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 8.0, right: 8),
+                        child: TextField(
+                          controller: _adharnumber,
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                              labelText: 'Aadhar Number',
+                              labelStyle:
+                                  TextStyle(fontSize: 15, color: Colors.black)),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black, width: 2),
+                          borderRadius: BorderRadius.all(Radius.circular(15))),
+                      width: 300,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 8.0, right: 8),
+                        child: TextField(
+                          controller: _phonenumber,
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                              labelText: 'Phone Number',
+                              labelStyle:
+                                  TextStyle(fontSize: 15, color: Colors.black)),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black, width: 2),
+                          borderRadius: BorderRadius.all(Radius.circular(15))),
+                      width: 300,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 8.0, right: 8),
+                        child: TextField(
+                          controller: _password,
+                          keyboardType: TextInputType.visiblePassword,
+                          decoration: InputDecoration(
+                              labelText: 'Password',
+                              labelStyle:
+                                  TextStyle(fontSize: 15, color: Colors.black)),
                         ),
                       ),
                     ),
@@ -109,10 +157,10 @@ class _LoginState extends State<Login> {
                     padding: const EdgeInsets.all(8.0),
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.pushReplacementNamed(context, '/signup');
+                        Navigator.pushReplacementNamed(context, '/login');
                       },
                       child: Text(
-                        "Don't have account? Create Account",
+                        "Already have account? Login",
                         style: TextStyle(color: Colors.black, fontSize: 15),
                       ),
                     ),
