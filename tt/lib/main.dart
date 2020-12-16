@@ -4,7 +4,7 @@ import 'package:tt/pages/login.dart';
 
 void main() {
   runApp(MaterialApp(
-    initialRoute: '/login',
+    initialRoute: '/loading',
     routes: {
       '/loading': (context) => Loading(),
       '/login': (context) => Login(),

@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 
 class Loading extends StatelessWidget {
+  void nextpage(BuildContext context) {
+    Navigator.pushReplacementNamed(context, '/login');
+  }
+
   @override
   Widget build(BuildContext context) {
+    Future.delayed(Duration(seconds: 2), () => nextpage(context));
     return Container(
       color: Colors.white,
       child: Center(
