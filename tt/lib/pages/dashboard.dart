@@ -18,7 +18,9 @@ class _DashboardState extends State<Dashboard> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
       child: GestureDetector(
-        onTap: () {},
+        onTap: () {
+          Navigator.pushNamed(context, '/passenger');
+        },
         child: Card(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
