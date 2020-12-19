@@ -8,7 +8,7 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   var _formkey = GlobalKey<FormState>();
   var _adharnumber = TextEditingController();
-  var _email = TextEditingController();
+  //var _email = TextEditingController();
   var _phonenumber = TextEditingController();
   var _username = TextEditingController();
   var _password = TextEditingController();
