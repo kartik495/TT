@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -8,10 +9,19 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   var _formkey = GlobalKey<FormState>();
   var _adharnumber = TextEditingController();
-  //var _email = TextEditingController();
+  var _email = TextEditingController();
   var _phonenumber = TextEditingController();
   var _username = TextEditingController();
   var _password = TextEditingController();
+
+  void verifyuser() async {
+    var url =
+        'http://127.0.0.1:8000/check_user?password=${_password.text}&aadhar=${_adharnumber.text}&email=${_email.text}&mobile=${_phonenumber.text}&username=${_username.text}';
+    final response = await get(url);
+    if (response.statusCode == 200) {
+      Navigator.pushReplacementNamed(context, '/dashboard');
+    } else {}
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +76,7 @@ class _SignUpState extends State<SignUp> {
                       child: Padding(
                         padding: const EdgeInsets.only(left: 8.0, right: 8),
                         child: TextField(
-                          controller: _username,
+                          controller: _email,
                           keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
                               labelText: 'Email Address',
@@ -137,6 +147,16 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ),
                   Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: Text(
+                        "Forgot Password",
+                        style: TextStyle(color: Colors.black, fontSize: 15),
+                      ),
+                    ),
+                  ),
+                  Padding(
                     padding: const EdgeInsets.all(15.0),
                     child: SizedBox(
                       width: 200,
@@ -153,18 +173,6 @@ class _SignUpState extends State<SignUp> {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.pushReplacementNamed(context, '/login');
-                      },
-                      child: Text(
-                        "Already have account? Login",
-                        style: TextStyle(color: Colors.black, fontSize: 15),
-                      ),
-                    ),
-                  )
                 ],
               ),
             )

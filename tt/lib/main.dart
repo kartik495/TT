@@ -7,7 +7,7 @@ import 'pages/passenger.dart';
 
 void main() {
   runApp(MaterialApp(
-    initialRoute: '/dashboard',
+    initialRoute: '/signup',
     routes: {
       '/loading': (context) => Loading(),
       '/login': (context) => Login(),
