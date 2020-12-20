@@ -1,6 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:tt/data/passenger_list_data.dart';
 
 class Passenger extends StatefulWidget {
   @override
@@ -9,15 +8,55 @@ class Passenger extends StatefulWidget {
 
 class _PassengerState extends State<Passenger> {
   final textStyle = TextStyle(color: Colors.black, fontSize: 20);
+  Map coach = data['coach'];
+  String coachShow = '';
+
+  Widget coachwidget({String coachNumber, Map seat}) {
+    bool show = coachShow == coachNumber ? true : false;
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        GestureDetector(
+          onTap: () {
+            setState(() {});
+            coachShow = coachNumber;
+          },
+          child: Container(
+            color: Colors.grey[300],
+            height: 50,
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Text(
+                coachNumber,
+                style: TextStyle(color: Colors.black, fontSize: 20),
+              ),
+            ),
+          ),
+        ),
+        show
+            ? Container(
+                height: 200,
+                child: ListView(
+                  children: seat.entries.map((e) => Text('${e.key}')).toList(),
+                ),
+              )
+            : Container()
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       drawer: Drawer(
         child: ListView(
           children: [
             DrawerHeader(
               child: Text(
-                'Passenger List Filters',
+                'Passenger List Filters for ${data['trainNumber']} ',
                 textAlign: TextAlign.left,
                 style: TextStyle(fontSize: 30),
               ),
@@ -66,41 +105,12 @@ class _PassengerState extends State<Passenger> {
         backgroundColor: Colors.black,
       ),
       body: ListView(
-        children: [],
+        children: coach.entries
+            .map((entry) =>
+                coachwidget(coachNumber: entry.key, seat: entry.value))
+            .toList(),
       ),
       backgroundColor: Colors.grey[300],
     );
   }
-}
-Map createTTData(){
-    var trainNumber=123456;
-    int numberOfStations=27;
-    List stationOrder;
-    for (int i=0;i<26;i++){
-      stationOrder.add(String.fromCharCode(65+i));
-      }
-    Map stationDetail;
-    for (int i=0;i<26;i++){
-      stationDetail[String.fromCharCode(65+i)]={'name':'${String.fromCharCode(65+i)} Railway Station','position':i};
-      }
-    
-
-    var lastStation='A';
-    def seatData():
-        data={}
-        end=1
-        status:str='A'
-        numberOfPassenger=0
-        while end<25:
-            start=randint(end,25)
-            end=randint(start+1,26)
-            numberOfPassenger+=1
-            if start==1:
-                status='NA'
-            data[f'passenger {numberOfPassenger}']={'from':stationOrder[start],'to':stationOrder[end],'id':numberOfPassenger,'status':'Confirmed'}
-        data['status']=status
-        data['numberOfPassenger']=numberOfPassenger
-        return data
-    coach={'S'+str(i):{i:seatData() for i in range(1,100)} for i in range(1,15)}
-    return {'trainNumber':trainNumber,'totalStation':numberOfStations,'stationOrder':stationOrder,'stationDetail':stationDetail,'currentStation':lastStation,'coach':coach}
 }
