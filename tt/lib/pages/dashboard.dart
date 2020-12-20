@@ -25,7 +25,7 @@ class _DashboardState extends State<Dashboard> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
-              height: 100,
+              height: 120,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
@@ -42,7 +42,11 @@ class _DashboardState extends State<Dashboard> {
                     style: textStyle,
                   ),
                   Text(
-                    'Station - ${work['station']} Platform No.- ${work['platform']}',
+                    'Station - ${work['station']}',
+                    style: textStyle,
+                  ),
+                  Text(
+                    'Platform No.- ${work['platform']}',
                     style: textStyle,
                   )
                 ],

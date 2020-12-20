@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class Loading extends StatelessWidget {
   void nextpage(BuildContext context) {
-    Navigator.pushReplacementNamed(context, '/login');
+    Navigator.pushReplacementNamed(context, '/signup');
   }
 
   @override

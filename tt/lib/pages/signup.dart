@@ -17,7 +17,7 @@ class _SignUpState extends State<SignUp> {
   void verifyuser(BuildContext context) async {
     showProcessing(context);
     var url =
-        'http://127.0.0.1:8000/check_user?password=${_password.text}&aadhar=${_adharnumber.text}&email=${_email.text}&mobile=${_phonenumber.text}&username=${_username.text}';
+        'http://127.0.0.1:8000/check_user?aadhar=${_adharnumber.text}&email=${_email.text}&mobile=${_phonenumber.text}&username=${_username.text}';
     final response = await get(url);
     Navigator.of(context, rootNavigator: true).pop();
     if (response.statusCode == 200) {
@@ -34,7 +34,6 @@ class _SignUpState extends State<SignUp> {
     super.initState();
     _adharnumber.text = '1234';
     _email.text = 'user@gmail.com';
-    _password.text = '1234';
     _phonenumber.text = '1234';
     _username.text = 'user';
   }
