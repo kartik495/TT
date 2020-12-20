@@ -10,46 +10,34 @@ class _PassengerState extends State<Passenger> {
   final textStyle = TextStyle(color: Colors.black, fontSize: 20);
   Map coach = data['coach'];
   String coachShow = '';
+  double height, width;
 
-  Widget coachwidget({String coachNumber, Map seat}) {
-    bool show = coachShow == coachNumber ? true : false;
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        GestureDetector(
-          onTap: () {
-            setState(() {});
-            coachShow = coachNumber;
-          },
-          child: Container(
-            color: Colors.grey[300],
-            height: 50,
-            child: Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Text(
-                coachNumber,
-                style: TextStyle(color: Colors.black, fontSize: 20),
-              ),
-            ),
+  Widget coachwidget({String coachName}) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, '/confirmed',
+            arguments: {'coachName': coachName});
+      },
+      child: Container(
+        decoration:
+            BoxDecoration(color: Colors.white, border: Border.all(width: 1)),
+        height: 50,
+        width: width,
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Text(
+            coachName,
+            style: TextStyle(color: Colors.black, fontSize: 20),
           ),
         ),
-        show
-            ? Container(
-                height: 200,
-                child: ListView(
-                  children: seat.entries.map((e) => Text('${e.key}')).toList(),
-                ),
-              )
-            : Container()
-      ],
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
+    width = MediaQuery.of(context).size.width;
+    height = MediaQuery.of(context).size.height;
     return Scaffold(
       drawer: Drawer(
         child: ListView(
@@ -60,7 +48,7 @@ class _PassengerState extends State<Passenger> {
                 textAlign: TextAlign.left,
                 style: TextStyle(fontSize: 30),
               ),
-              padding: EdgeInsets.all(40),
+              padding: EdgeInsets.all(30),
             ),
             ListTile(
               title: Text(
@@ -105,9 +93,9 @@ class _PassengerState extends State<Passenger> {
         backgroundColor: Colors.black,
       ),
       body: ListView(
+        addRepaintBoundaries: true,
         children: coach.entries
-            .map((entry) =>
-                coachwidget(coachNumber: entry.key, seat: entry.value))
+            .map((entry) => coachwidget(coachName: entry.key))
             .toList(),
       ),
       backgroundColor: Colors.grey[300],
