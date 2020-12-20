@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:tt/services/loadingScreen.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -12,15 +13,30 @@ class _SignUpState extends State<SignUp> {
   var _email = TextEditingController();
   var _phonenumber = TextEditingController();
   var _username = TextEditingController();
-  var _password = TextEditingController();
 
-  void verifyuser() async {
+  void verifyuser(BuildContext context) async {
+    showProcessing(context);
     var url =
         'http://127.0.0.1:8000/check_user?password=${_password.text}&aadhar=${_adharnumber.text}&email=${_email.text}&mobile=${_phonenumber.text}&username=${_username.text}';
     final response = await get(url);
+    Navigator.of(context, rootNavigator: true).pop();
     if (response.statusCode == 200) {
       Navigator.pushReplacementNamed(context, '/dashboard');
-    } else {}
+    } else {
+      showAlertDilogue(context,
+          title: 'SignUp Failed',
+          message: 'You have either entered wrong details');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _adharnumber.text = '1234';
+    _email.text = 'user@gmail.com';
+    _password.text = '1234';
+    _phonenumber.text = '1234';
+    _username.text = 'user';
   }
 
   @override
@@ -127,36 +143,6 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black, width: 2),
-                          borderRadius: BorderRadius.all(Radius.circular(15))),
-                      width: 300,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 8.0, right: 8),
-                        child: TextField(
-                          controller: _password,
-                          keyboardType: TextInputType.visiblePassword,
-                          decoration: InputDecoration(
-                              labelText: 'Password',
-                              labelStyle:
-                                  TextStyle(fontSize: 15, color: Colors.black)),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: GestureDetector(
-                      onTap: () {},
-                      child: Text(
-                        "Forgot Password",
-                        style: TextStyle(color: Colors.black, fontSize: 15),
-                      ),
-                    ),
-                  ),
-                  Padding(
                     padding: const EdgeInsets.all(15.0),
                     child: SizedBox(
                       width: 200,
@@ -164,7 +150,9 @@ class _SignUpState extends State<SignUp> {
                       child: RaisedButton(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15)),
-                        onPressed: () {},
+                        onPressed: () {
+                          verifyuser(context);
+                        },
                         color: Colors.black,
                         child: Text(
                           'SUMBIT',

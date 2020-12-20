@@ -23,31 +23,32 @@ showAlertDilogue(BuildContext context, {String title, String message}) {
 // ignore: missing_return
 Widget showProcessing(BuildContext context) {
   var random = new Random();
+  final color = Colors.black;
   List<Widget> spinkit = [
     SpinKitWave(
       size: 60,
-      color: Colors.green,
+      color: color,
       type: SpinKitWaveType.start,
     ),
     SpinKitRotatingPlain(
       size: 60,
-      color: Colors.green,
+      color: color,
     ),
     SpinKitFoldingCube(
       size: 60,
-      color: Colors.green,
+      color: color,
     ),
     SpinKitRing(
       size: 60,
-      color: Colors.green,
+      color: color,
     ),
     SpinKitChasingDots(
       size: 60,
-      color: Colors.green,
+      color: color,
     ),
     SpinKitThreeBounce(
       size: 60,
-      color: Colors.green,
+      color: color,
     ),
   ];
 

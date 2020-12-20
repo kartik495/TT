@@ -1,4 +1,5 @@
 TT App
+mobile verification call-- to be completed after clearing SIH 1
 completing passenger list
 login page verification by calling 
 connecting and collecting data from server
