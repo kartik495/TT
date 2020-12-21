@@ -10,10 +10,30 @@ class _AvailableState extends State<Available> {
   final textStyle = TextStyle(color: Colors.black, fontSize: 20);
   Map coach, stationOrder = data['stationOrder'];
   double height, width;
-  int from = data['currentStation'], to;
+  int from = data['currentStation'], to = data['currentStation'] + 1;
 
   Widget coachwidget({int seatNumber, Map seatDetail}) {
-    bool status = seatDetail['status'] == 'NA';
+    bool status = false;
+    try {
+      if (seatDetail['currentPassenger'] == 0 &&
+          to < seatDetail[seatDetail['currentPassenger'] + 1]['from']) {
+        status = true;
+      }
+    } catch (e) {
+      //nothing
+    }
+    try {
+      if (seatDetail['currentPassenger'] == seatDetail['numberOfPassenger'] &&
+          seatDetail[seatDetail['currentPassenger']]['to'] <= from)
+        status = true;
+    } catch (e) {}
+    try {
+      if (from >= seatDetail[seatDetail['currentPassenger']]['to'] &&
+          to <= seatDetail[seatDetail['currentPassenger'] + 1]['from']) {
+        status = true;
+      }
+    } catch (e) {}
+
     return status
         ? GestureDetector(
             onTap: () {
@@ -73,11 +93,15 @@ class _AvailableState extends State<Available> {
                     onChanged: (value) {
                       setState(() {
                         from = value;
+                        if (from >= to) {
+                          to = from + 1;
+                        }
                       });
                     },
                     items: stationOrder.keys
                         .toList()
-                        .sublist(data['currentStation'] - 1)
+                        .sublist(data['currentStation'] - 1,
+                            stationOrder.keys.length - 1)
                         .map((e) => DropdownMenuItem(
                               value: e,
                               child: Text('${data['stationOrder'][e]}'),

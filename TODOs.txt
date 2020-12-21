@@ -1,8 +1,11 @@
 TT App
 mobile verification call-- to be completed after clearing SIH 1
-completing passenger list
+completing backend functioning of both filter(action changing ang saving data)
 login page verification by calling 
-connecting and collecting data from server
+connecting,collecting and storing data from server
+creating railway server replica
+
+
 
 User App
 everthing

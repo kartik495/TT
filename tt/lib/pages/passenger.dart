@@ -9,7 +9,7 @@ class Passenger extends StatefulWidget {
 class _PassengerState extends State<Passenger> {
   final textStyle = TextStyle(color: Colors.black, fontSize: 20);
   Map coach = data['coach'];
-  String filter = 'Comfirmed Seats List';
+  String filter = 'Available Seats List';
   double height, width;
 
   Widget coachwidget({String coachName}) {
