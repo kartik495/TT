@@ -9,14 +9,19 @@ class Passenger extends StatefulWidget {
 class _PassengerState extends State<Passenger> {
   final textStyle = TextStyle(color: Colors.black, fontSize: 20);
   Map coach = data['coach'];
-  String coachShow = '';
+  String filter = 'Comfirmed Seats List';
   double height, width;
 
   Widget coachwidget({String coachName}) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, '/confirmed',
-            arguments: {'coachName': coachName});
+        if (filter == 'Comfirmed Seats List') {
+          Navigator.pushNamed(context, '/confirmed',
+              arguments: {'coachName': coachName});
+        } else if (filter == 'Available Seats List') {
+          Navigator.pushNamed(context, '/available',
+              arguments: {'coachName': coachName});
+        }
       },
       child: Container(
         decoration:
@@ -56,8 +61,9 @@ class _PassengerState extends State<Passenger> {
                 style: textStyle,
               ),
               onTap: () {
-                // Update the state of the app.
-                // ...
+                setState(() {
+                  filter = 'Comfirmed Seats List';
+                });
               },
             ),
             ListTile(
@@ -66,18 +72,9 @@ class _PassengerState extends State<Passenger> {
                 style: textStyle,
               ),
               onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-            ListTile(
-              title: Text(
-                'Seats to be Confirmed',
-                style: textStyle,
-              ),
-              onTap: () {
-                // Update the state of the app.
-                // ...
+                setState(() {
+                  filter = 'Available Seats List';
+                });
               },
             ),
           ],
@@ -86,7 +83,7 @@ class _PassengerState extends State<Passenger> {
       appBar: AppBar(
         title: Center(
           child: Text(
-            'Passenger List',
+            filter,
             style: TextStyle(fontSize: 25, color: Colors.white),
           ),
         ),
